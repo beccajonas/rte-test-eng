@@ -207,8 +207,8 @@ export default function ToolbarPlugin() {
       <ButtonGroup isAttached variant="ghost" color="#444">
         <ListPlugin blockType={blockType} setBlockType={setBlockType} />
         <Divider />
-        <ImagePlugin />
-        <Divider />
+        {/* <ImagePlugin />
+        <Divider /> */}
         <CodeBlockPlugin />
         <Divider />
         <LinkPlugin />
