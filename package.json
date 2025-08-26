@@ -53,7 +53,7 @@
   "retoolCustomComponentLibraryConfig": {
     "name": "RTE",
     "label": "RTE",
-    "description": "RTE  or UI proj",
+    "description": "",
     "entryPoint": "src/index.tsx",
     "outputPath": "dist"
   }
