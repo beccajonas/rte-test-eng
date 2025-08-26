@@ -51,9 +51,9 @@
     "vite": "^7.1.2"
   },
   "retoolCustomComponentLibraryConfig": {
-    "name": "RichTextEditorV2Local",
-    "label": "RichTextEditorV2Local",
-    "description": "",
+    "name": "RTE",
+    "label": "RTE",
+    "description": "RTE  or UI proj",
     "entryPoint": "src/index.tsx",
     "outputPath": "dist"
   }

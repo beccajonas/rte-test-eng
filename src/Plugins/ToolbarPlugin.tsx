@@ -1,11 +1,11 @@
-import { Box, ButtonGroup, Flex, IconButton, Select } from '@chakra-ui/react'
+import { Box, ButtonGroup, Flex, IconButton, Select } from "@chakra-ui/react"
 import {
   LOW_PRIORIRTY,
   RICH_TEXT_OPTIONS,
   RichTextAction
-} from '../Constants/index'
-import { Divider } from '../Components/Divider'
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
+} from "../Constants/index"
+import { Divider } from "../Components/Divider"
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import {
   FORMAT_TEXT_COMMAND,
   FORMAT_ELEMENT_COMMAND,
@@ -16,15 +16,15 @@ import {
   SELECTION_CHANGE_COMMAND,
   $getSelection,
   $isRangeSelection
-} from 'lexical'
-import { useState, useEffect } from 'react'
-import { mergeRegister, $getNearestNodeOfType } from '@lexical/utils'
-import { css } from '@chakra-ui/react'
-import ListPlugin from './ListPlugin'
-import { $isListNode, ListNode } from '@lexical/list'
-import CodeBlockPlugin from './CodeBlockPlugin'
-import ImagePlugin from './ImagePlugin'
-import LinkPlugin from './LinkPlugin'
+} from "lexical"
+import { useState, useEffect } from "react"
+import { mergeRegister, $getNearestNodeOfType } from "@lexical/utils"
+import { css } from "@chakra-ui/react"
+import ListPlugin from "./ListPlugin"
+import { $isListNode, ListNode } from "@lexical/list"
+import CodeBlockPlugin from "./CodeBlockPlugin"
+import ImagePlugin from "./ImagePlugin"
+import LinkPlugin from "./LinkPlugin"
 
 export default function ToolbarPlugin() {
   const [editor] = useLexicalComposerContext()
@@ -35,27 +35,27 @@ export default function ToolbarPlugin() {
   const [selectionMap, setSelectionMap] = useState<{ [id: string]: boolean }>(
     {}
   )
-  const [blockType, setBlockType] = useState('paragraph')
+  const [blockType, setBlockType] = useState("paragraph")
 
   const updateToolbar = () => {
     const selection = $getSelection()
 
     if ($isRangeSelection(selection)) {
       const newSelectionMap = {
-        [RichTextAction.Bold]: selection.hasFormat('bold'),
-        [RichTextAction.Italics]: selection.hasFormat('italic'),
-        [RichTextAction.Underline]: selection.hasFormat('underline'),
-        [RichTextAction.Strikethrough]: selection.hasFormat('strikethrough'),
-        [RichTextAction.Superscript]: selection.hasFormat('superscript'),
-        [RichTextAction.Subscript]: selection.hasFormat('subscript'),
-        [RichTextAction.Highlight]: selection.hasFormat('highlight'),
-        [RichTextAction.Code]: selection.hasFormat('code')
+        [RichTextAction.Bold]: selection.hasFormat("bold"),
+        [RichTextAction.Italics]: selection.hasFormat("italic"),
+        [RichTextAction.Underline]: selection.hasFormat("underline"),
+        [RichTextAction.Strikethrough]: selection.hasFormat("strikethrough"),
+        [RichTextAction.Superscript]: selection.hasFormat("superscript"),
+        [RichTextAction.Subscript]: selection.hasFormat("subscript"),
+        [RichTextAction.Highlight]: selection.hasFormat("highlight"),
+        [RichTextAction.Code]: selection.hasFormat("code")
       }
       setSelectionMap(newSelectionMap)
 
       const anchorNode = selection.anchor.getNode()
       const element =
-        anchorNode.getKey() === 'root'
+        anchorNode.getKey() === "root"
           ? anchorNode
           : anchorNode.getTopLevelElementOrThrow()
       const elementKey = element.getKey()
@@ -66,11 +66,11 @@ export default function ToolbarPlugin() {
       if ($isListNode(element)) {
         const parentList = $getNearestNodeOfType(anchorNode, ListNode)
         const type = parentList ? parentList.getTag() : element.getTag()
-        console.log('Setting block type to:', type)
+        console.log("Setting block type to:", type)
         setBlockType(type)
-        console.log('Block type set to:', blockType)
+        console.log("Block type set to:", blockType)
       } else {
-        setBlockType('paragraph')
+        setBlockType("paragraph")
       }
     }
   }
@@ -116,54 +116,54 @@ export default function ToolbarPlugin() {
   }, [])
 
   const onAction = (id: RichTextAction) => {
-    console.log('Action triggered:', id)
+    console.log("Action triggered:", id)
     switch (id) {
       case RichTextAction.Bold: {
-        editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold')
+        editor.dispatchCommand(FORMAT_TEXT_COMMAND, "bold")
         break
       }
       case RichTextAction.Italics: {
-        editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic')
+        editor.dispatchCommand(FORMAT_TEXT_COMMAND, "italic")
         break
       }
       case RichTextAction.Underline: {
-        editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline')
+        editor.dispatchCommand(FORMAT_TEXT_COMMAND, "underline")
         break
       }
       case RichTextAction.Strikethrough: {
-        editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'strikethrough')
+        editor.dispatchCommand(FORMAT_TEXT_COMMAND, "strikethrough")
         break
       }
       case RichTextAction.Superscript: {
-        editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'superscript')
+        editor.dispatchCommand(FORMAT_TEXT_COMMAND, "superscript")
         break
       }
       case RichTextAction.Subscript: {
-        editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'subscript')
+        editor.dispatchCommand(FORMAT_TEXT_COMMAND, "subscript")
         break
       }
       case RichTextAction.Highlight: {
-        editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'highlight')
+        editor.dispatchCommand(FORMAT_TEXT_COMMAND, "highlight")
         break
       }
       case RichTextAction.Code: {
-        editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code')
+        editor.dispatchCommand(FORMAT_TEXT_COMMAND, "code")
         break
       }
       case RichTextAction.LeftAlign: {
-        editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'left')
+        editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "left")
         break
       }
       case RichTextAction.RightAlign: {
-        editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right')
+        editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "right")
         break
       }
       case RichTextAction.CenterAlign: {
-        editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'center')
+        editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "center")
         break
       }
       case RichTextAction.JustifyAlign: {
-        editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'justify')
+        editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "justify")
         break
       }
       case RichTextAction.Undo: {
@@ -180,7 +180,7 @@ export default function ToolbarPlugin() {
   const getSelectedBtnProps = (isSelected: boolean) =>
     isSelected
       ? {
-          variant: 'solid'
+          variant: "solid"
         }
       : {}
 

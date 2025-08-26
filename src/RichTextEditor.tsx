@@ -22,10 +22,11 @@ interface RichTextEditorProps {
   onChange: (value: string) => void
   placeholder?: string
   name: string
+  setName: (newValue: string) => void // ✅ expects a string
 }
 
 export const RichTextEditor: React.FC<RichTextEditorProps> = React.memo(
-  function RichTextEditor({ value, onChange, placeholder, name }) {
+  function RichTextEditor({ value, onChange, placeholder, name, setName }) {
     const initialConfig = useMemo(
       () => ({
         namespace: name,
@@ -89,7 +90,7 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = React.memo(
           <HistoryPlugin />
           <ListPlugin />
           {/* <CustomOnChangePlugin value={value} onChange={onChange} /> */}
-          <SaveHtmlPlugin />
+          <SaveHtmlPlugin setName={setName} />
         </LexicalComposer>
       </div>
     )

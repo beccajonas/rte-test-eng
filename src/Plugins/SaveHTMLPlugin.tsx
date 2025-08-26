@@ -4,17 +4,26 @@ import { $generateHtmlFromNodes } from "@lexical/html"
 import { Button } from "@chakra-ui/react"
 import { Retool } from "@tryretool/custom-component-support"
 
-const SaveHtmlPlugin: React.FC = () => {
+type ChildProps = {
+  setName: (newValue: string) => void // ✅ expects a string
+}
+
+export default function SaveHtmlPlugin({ setName }: ChildProps) {
   const [editor] = useLexicalComposerContext()
 
   // Retool state to hold the HTML content
-  const [textHtml, setTextHtml] = Retool.useStateString({ name: "textContent" })
+  const [textHtml, setTextHtml] = Retool.useStateString({
+    name: "textContent",
+    initialValue: "something",
+    inspector: "text",
+    label: "this thing"
+  })
 
   const saveHtml = () => {
     editor.getEditorState().read(() => {
       const htmlString = $generateHtmlFromNodes(editor)
       console.log("Editor HTML:", htmlString)
-      setTextHtml(htmlString) // Set it into Retool state
+      setName(htmlString) // Set it into Retool state
     })
   }
 
@@ -26,4 +35,3 @@ const SaveHtmlPlugin: React.FC = () => {
     </>
   )
 }
-export default SaveHtmlPlugin

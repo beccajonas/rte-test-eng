@@ -1,6 +1,10 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { ChakraProvider } from '@chakra-ui/react'
-import Form from './Form'
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { ChakraProvider } from "@chakra-ui/react"
+import Form from "./Form"
+
+type ChildProps = {
+  setName: (newValue: string) => void // ✅ expects a string
+}
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -13,10 +17,10 @@ const queryClient = new QueryClient({
   }
 })
 
-export default function App() {
+export default function App({ setName }: ChildProps) {
   return (
     <ChakraProvider>
-      <Form />
+      <Form setName={setName} />
     </ChakraProvider>
   )
 }
