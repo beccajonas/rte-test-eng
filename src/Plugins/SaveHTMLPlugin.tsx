@@ -30,7 +30,7 @@ export default function SaveHtmlPlugin({ setName }: ChildProps) {
   return (
     <>
       <Button colorScheme="blue" size="xs" onClick={saveHtml}>
-        Save as HTML
+        Save
       </Button>
     </>
   )
