@@ -16,13 +16,25 @@ import { ListPlugin } from "@lexical/react/LexicalListPlugin"
 import { theme } from "./theme"
 import { ImageNode } from "./nodes/ImageNode"
 import SaveHtmlPlugin from "./Plugins/SaveHTMLPlugin"
+import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin"
+import { LinkNode } from "@lexical/link"
+import { ClickableLinkPlugin } from "@lexical/react/LexicalClickableLinkPlugin"
 
 interface RichTextEditorProps {
   value: string
   onChange: (value: string) => void
   placeholder?: string
   name: string
-  setName: (newValue: string) => void // ✅ expects a string
+  setName: (newValue: string) => void
+}
+
+// ✅ move validateUrl OUTSIDE interface
+const urlRegExp = new RegExp(
+  /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.\w-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[\w]*))?)/
+)
+
+export function validateUrl(url: string): boolean {
+  return url === "https://" || urlRegExp.test(url)
 }
 
 export const RichTextEditor: React.FC<RichTextEditorProps> = React.memo(
@@ -38,7 +50,8 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = React.memo(
           CodeNode,
           ListNode,
           ListItemNode,
-          ImageNode
+          ImageNode,
+          LinkNode
         ]
       }),
       [name]
@@ -89,6 +102,9 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = React.memo(
           <AutoFocusPlugin />
           <HistoryPlugin />
           <ListPlugin />
+          <LinkPlugin validateUrl={validateUrl} />
+          <ClickableLinkPlugin />
+          {/* Uncomment if you want live updates */}
           {/* <CustomOnChangePlugin value={value} onChange={onChange} /> */}
           <SaveHtmlPlugin setName={setName} />
         </LexicalComposer>
